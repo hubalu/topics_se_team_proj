@@ -6,7 +6,6 @@ public class Bidding {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	public static boolean ListForAuction(int token, int user_id, int starting_price, 
