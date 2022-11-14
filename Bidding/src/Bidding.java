@@ -1,5 +1,3 @@
-package Bidding;
-
 import java.util.List;
 
 public class Bidding {
