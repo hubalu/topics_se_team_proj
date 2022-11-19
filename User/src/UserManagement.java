@@ -5,13 +5,13 @@ public class UserManagement {
 
     private Database db;
 
-    public UserManagement() {
-        this.db = new Database("data.db");
+    public UserManagement(String databaseName) {
+        this.db = new Database(databaseName);
         this.db.createTableIfNotExists();
     }
 
 
-    public boolean deleteUser(Integer id, Integer operatorId, UserType operatorRole) {   //token is the id of the operator
+    public boolean deleteUser(Integer id, Integer operatorId, UserType operatorRole) {
         try {
             if (operatorId.equals(id) || operatorRole == UserType.Admin) {
                 this.db.deleteUser(id);
@@ -25,18 +25,18 @@ public class UserManagement {
         return true;
     }
 
-    public boolean createUser(String username, UserType userType, String password, String email,String phoneNumber) {
+    public int createUser(String username, UserType userType, String password, String email,String phoneNumber) {
         try {
             if (this.db.checkIfUserExist(username) || this.db.checkIfEmailExist(email)){
-                return false;
+                return -1;
             } else {
                 this.db.insertIntoTable(username, userType, password, email, phoneNumber);
+                return this.db.findId(username);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            return false;
+            return -1;
         }
-        return true;
     }
 
     public boolean updateUser(Integer id, String username, String password, String email,String phoneNumber) {

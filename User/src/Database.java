@@ -103,4 +103,16 @@ public class Database {
         return false;
     }
 
+    public int findId(String userName) throws SQLException {
+        String sql = String.format("SELECT id FROM User WHERE username = '%s'", userName);
+        Statement stmt = null;
+
+        stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        while (rs.next()) {
+            return rs.getInt("id");
+        }
+        return -1;
+    }
+
 }
